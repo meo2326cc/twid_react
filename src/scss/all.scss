@@ -16,6 +16,7 @@
 
 
 nav{ 
+    font-size: 16px;
     li{
         width: 88px;
         text-align: center;
@@ -23,7 +24,7 @@ nav{
 }
 @media (max-width:992px) {
 
-    body{
+    html{
         font-size: 12px;
     }
 
@@ -45,6 +46,7 @@ body{
 .banner{
     background-image: url('../img/hero.jpg');
     background-repeat: no-repeat;
+    background-size: cover;
     height: 80vh;
 }
 

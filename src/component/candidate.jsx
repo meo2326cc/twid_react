@@ -1,11 +1,12 @@
 import { Block } from "./component";
-import { useState ,memo , useCallback} from "react";
+import { useState ,memo , useCallback , useRef, useEffect} from "react";
 import peopleData from "../data";
 
 export function Candidate() {
 
     const [data, setData] = useState(['--請點選地圖檢視各地區候選人--'])
     const [location , setLocation] = useState('');
+    const clickEvent = useRef(null);
 
     const locationList = {
         'taipei': '台北',
@@ -19,11 +20,15 @@ export function Candidate() {
         'hsinchu': '新竹'
     }
 
-    const click = useCallback(    (e) => {
-        const match = e.target.id ;
-        match !== '' ? setData(peopleData[match]) : null
-        match !== '' ? setLocation(locationList[match]):null
+    const click = useCallback((e) => {
+          const match = e.target.id ;
+          match !== '' ? setData(peopleData[match]) : null
+          match !== '' ? setLocation(locationList[match]):null
+          setTimeout(()=>{clickEvent.current.classList.add('show');},100) 
+
     },[])
+
+    useEffect(()=>{clickEvent.current.classList.add('show');},[])
 
     return (<>
         <Block title="認證候選人" anchor="candidate">
@@ -31,11 +36,11 @@ export function Candidate() {
                 <div className="col-12 col-lg-6">
                     <Twsvg click={click} />
                 </div>
-                <div className="col-12 col-lg-6 text-start ">
-                    <h3 className="text-linear-gradient d-inline">{location}</h3>
+                <div className="col-12 col-lg-6 text-start fade" ref={clickEvent} key={location}>
+                    <h3  className="text-linear-gradient d-inline">{location}</h3>
                     <ul>
                         { data[0] === '--請點選地圖檢視各地區候選人--' ? <p className="text-gray-600 text-center">{data}</p> : data.map((item, index) => {
-                            return (<li key={index} className="d-flex bg-gray-100 rounded shadow-sm my-16 py-8 px-16 text-start">
+                            return (<li key={index} className="d-flex bg-gray-100 rounded shadow-sm my-16 py-8 px-16 text-start " >
                                 <a href={item.link} className="d-block w-100">
                                     <div className=" d-flex align-items-center">
                                         <img src={item.img} alt="people" className="rounded-circle" width="60px" height="60px" />
@@ -59,7 +64,7 @@ const Twsvg = memo(({ click }) => {
     return (
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             viewBox="0 0 539.6 941.3" xmlSpace="preserve" onClick={click}>
-            <g id="Taiwan" className="st0">
+            <g className="st0" >
                 <path className="st1" d="M108.9,735.3l1.4-0.5c-0.8-1.5-1.4-2.3-1.5-3.9c-1.5-1.7-2.4-3.4-2.8-5.6c-0.8-4-0.2-5.1,2.8-8l0.1-3.6
            l0.5,0.5l0.3,2l0.7,0.3l0.5-0.8l-0.5-1l0.7-0.8l-0.4-0.8l0.4-0.9c-0.6-0.6-1.5-2.2-1.4-3.2l-0.5-0.5l-0.6,0.6l0.6,2.2l-0.7,1.3
            c-1.1-5.8-4.2-10.6-6.4-16c-1.6-4-3-8.1-4.6-12.1c-0.9-2.1-2-4.2-2.8-6.3c-0.6-1.7-1.1-3.5-1.6-5.2c-0.1-0.3-0.5-0.6-0.6-0.9
@@ -249,7 +254,7 @@ const Twsvg = memo(({ click }) => {
            c1.9,1.9,4.7,3.8,7.2,4.8c4.2,5.2,2.6,14.4,4.4,20.8c2.4,3.5,7.6,4.8,11.5,5.9c0.7,1.1,3.6,4.3,5,4.5c1.2,0.2,2,0.2,3.2,0.3
            l6.4,0.6"/>
             </g>
-            <g id="圖層_2">
+            <g>
                 <path className="st3" d="M380.1,599.4c-7.6,12.6-47.8,81-51.4,89.7c-4.3,10.2-30.7,25.5-38.3,33.2c-7.7,7.7-8.5,24.7-23,61.3
            c-5.3,13.5-7.6,30.5-8.5,46.6c-8.8-1.7-19-4.5-22.3-8.2c-6.1-7-7.8-38.3-7.8-38.3s-20-47-1.7-62.7c18.3-15.7,31.3-27,31.3-33.9
            c0-3.3-3.5-9.1-7.4-15.5c-4.3-7-9.1-14.7-10-20.2c-1.7-10.4,8.7-12.2,9.6-22.6c0.9-10.5,0-12.2,7-44.4

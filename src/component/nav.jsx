@@ -4,8 +4,8 @@ export default function Nav() {
 
   function fontSizeCtrl(e) {
     //console.log(e.target.checked)
-    const doc = document.querySelector('html').style;
-    e.target.checked ? doc.fontSize = "20px" : doc.fontSize = "16px";
+    const doc = document.querySelector('#root').style;
+    e.target.checked ? doc.fontSize = "18px" : doc.fontSize = "16px";
   }
 
   
@@ -52,13 +52,11 @@ pointer.scrollIntoView({
           </div>
         </div>
         <ul className="collapse navbar-collapse" id="navbarNav">
-              <li className='ms-24 '><a href="#news"  onClick={scroll} className='text-decoration-none'>最新消息</a></li>
-              <li className='ms-24 '> <a href="#intro"  onClick={scroll} className='text-decoration-none'>聯盟宗旨</a> </li>
-              <li className='ms-24 '> <a href="#candidate"  onClick={scroll} className='text-decoration-none'>認證候選人</a> </li>
-              <li className='ms-24 me-16'> <a href="#intro2" onClick={scroll} className='text-decoration-none'>聯盟簡介</a> </li>
+              <li className='ms-24 '><a href="#news"  onClick={scroll} className='text-decoration-none text-nowrap'>最新消息</a></li>
+              <li className='ms-24 '> <a href="#intro"  onClick={scroll} className='text-decoration-none text-nowrap'>聯盟宗旨</a> </li>
+              <li className='ms-24 '> <a href="#candidate"  onClick={scroll} className='text-decoration-none text-nowrap'>認證候選人</a> </li>
+              <li className='ms-24 me-16'> <a href="#intro2" onClick={scroll} className='text-decoration-none text-nowrap'>聯盟簡介</a> </li>
             </ul>
-      </div>
-      <div className="mobilelist">
       </div>
     </nav>
   )
